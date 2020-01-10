@@ -1,3 +1,8 @@
+
+% BPHYS 450 HW 1: Stick Game
+% Kyle Gersbach
+% January 10 2020
+
 %Set variables
 m = 9.11 * (10^-31);
 E = 10;
@@ -50,6 +55,7 @@ for basket = 1:100
     end
 end
 
+%Output is the same
 disp(isequal(child,children))
 
 %}
