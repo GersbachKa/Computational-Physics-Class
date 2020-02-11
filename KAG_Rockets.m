@@ -1,4 +1,8 @@
-﻿function KAG_Rockets()
+﻿% Kyle Gersbach
+% Homework 4
+% 2/10/2020
+
+function KAG_Rockets()
     global massRocket initialFuelMass burnTime thrust
     massRocket = 150000;
     initialFuelMass = 2500000;
@@ -11,19 +15,43 @@
     v0=0;
     Y=[y0;v0];
     
-    %{
-    t=[0:4:400];
-    f=[];
-    for i=[1:1:101]
-        f(i)=Force(t(i),0);
-    end
-    plot(t,f)
-    disp(f(100));
-    %}
     
     [t,Yout] = ode45(@NewtonSecond,time,Y);
     
+    len = length(t);
+    m=zeros(1,len);
+    f=zeros(1,len);
+    
+    for i=1:length(t)
+        m(i) = Mass(t(i));
+        f(i) = Force(t(i),Yout(i,1));
+    end
+    
+    
+    figure()
     plot(t,Yout(:,1))
+    title('Plot of Elevation vs Time');
+    xlabel('Time (s)');
+    ylabel('Elevation of Rocket (m)');
+    
+    figure()
+    plot(t,Yout(:,2))
+    title('Plot of Velocity vs Time');
+    xlabel('Time (s)');
+    ylabel('Velocity of Rocket (m/s)');
+    
+    figure()
+    plot(t,m)
+    title('Plot of Mass vs Time');
+    xlabel('Time (s)');
+    ylabel('Mass of Rocket (kg)');
+    
+    figure()
+    plot(t,f)
+    title('Plot of Net Force vs Time');
+    xlabel('Time (s)');
+    ylabel('Net Force (N)');
+    
     
     
 end
@@ -36,6 +64,7 @@ function m=Mass(t)
     else
         m = massRocket;
     end
+
 end
 
 function f=Force(t,y)
@@ -49,6 +78,7 @@ function f=Force(t,y)
     else
         f=thrust+fGrav;
     end
+    
 end
 
 function r=NewtonSecond(t,Y)
