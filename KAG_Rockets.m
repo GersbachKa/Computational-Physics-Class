@@ -8,9 +8,10 @@ function KAG_Rockets()
     initialFuelMass = 2500000;
     burnTime = 300;
     thrust = 45000000;
+    timeEnd = 1000;
     
     %Initial Conditions for ODE
-    time = [0,800];
+    time = [0,timeEnd];
     y0=0;
     v0=0;
     Y=[y0;v0];
